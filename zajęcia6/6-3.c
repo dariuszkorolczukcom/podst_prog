@@ -25,9 +25,18 @@ int main() {
 
    printf("Podaj liczbe m\n");
       scanf("%d", &m);
-
+   if(N<m) 
+   {
+      printf("m nie moze byc wieksza niz n\n");
+      return 0;
+   }
    printf("Podaj liczbe n\n");
-      scanf("%d", &n);
+   scanf("%d", &n);
+   if(N<n) 
+   {
+      printf("m nie moze byc wieksza niz n\n");
+      return 0;
+   }
 
    int * t_2 = kopiuj(wektor, n, m);
    show(t_2, m);
