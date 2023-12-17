@@ -47,7 +47,7 @@ void radarF(Punkt * punkty, int N, Punkt radar, float R)
     for (i=0;i<N;++i)
     {        
         printf("punkt numer: %d\nx: %.3f, y: %.3f\n",i+1,punkty[i].x,punkty[i].y);
-        float h = sqrtf(pow(punkty[i].x -radar.x, 2) + pow(punkty[i].y - radar.y,2));
+        float h = sqrtf(pow(punkty[i].x - radar.x, 2) + pow(punkty[i].y - radar.y,2));
         if (R-h>0)
                     printf("punkt numer: %d\nx: %.3f, y: %.3f\n",i+1,punkty[i].x,punkty[i].y);
     }
