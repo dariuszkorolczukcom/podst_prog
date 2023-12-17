@@ -1,0 +1,2 @@
+// Zadanie 8.9
+// Napisz funkcję void zapisz(const char *sciezka, struct produkt *p, int n, float c), która zapisuje do pliku tekstowego informacje o tych produktach z tablicy p, których cena jest wyższa niż zadany próg c; każdy produkt w osobnej linii, pola oddzielone spacjami. Pierwszy wiersz pliku powinien zawierać liczbę zapisanych produktów.
