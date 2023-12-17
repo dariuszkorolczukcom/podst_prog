@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-struct punkt {
+typedef struct punkt {
 float x, y;
-};
+} Punkt;
 
-void fill(struct punkt * p, int N);
+void fill(Punkt * p, int N);
+void show(Punkt * p, int N);
 int main() 
 {
     int N;
@@ -18,24 +19,30 @@ int main()
     }
    //zainicjuj srand aby uywać czasu do losowania liczb
     int i; float x,y;
-    struct punkt punkty[N];
+    Punkt * punkty;
+    punkty = calloc(N, sizeof(Punkt));
     fill(punkty, N);
-    for (i=0;i<N;++i)
-    {
-        printf("punkt numer: %d\nx: %.3f, y: %.3f\n",i+1,punkty[i].x,punkty[i].y);
-    }
+    show(punkty, N);
     return 0;
 }
 
-void fill(struct punkt * punkty, int N)
+void fill(Punkt * punkty, int N)
 {
     int i; float x,y;
     for (i=0;i<N;++i)
     {
-        scanf("%f %f",&x, &y);
-        punkty[i].x = x;
-        punkty[i].y = y;
+        scanf("%f %f",&punkty[i].x, &punkty[i].y);
     }
+    return;
+};
+void show(Punkt * punkty, int N)
+{
+    int i; float x,y;
+    for (i=0;i<N;++i)
+    {
+        printf("punkt numer: %d\nx: %.3f, y: %.3f\n",i+1,punkty[i].x,punkty[i].y);
+    }
+    return;
 };
 
 
