@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <math.h>
 
 typedef struct punkt {
     float x, y;
@@ -8,7 +8,7 @@ typedef struct punkt {
 
 void fill(Punkt * p, int N);
 void show(Punkt * p, int N);
-void radar(Punkt * p, int N, Punkt radar, float R);
+void radarF(Punkt * p, int N, Punkt radar, float R);
 int main() 
 {
     int N; float R;
@@ -35,18 +35,21 @@ int main()
        printf("liczba nie moze byc mniejsza niz 0!\n");
        return 1;
     }
-    radar(punkty, N, radar, R);
+    radarF(punkty, N, radar, R);
 
    //zainicjuj srand aby uywać czasu do losowania liczb
 
     return 0;
 }
-void radar(Punkt * p, int N, Punkt radar, float R)
+void radarF(Punkt * punkty, int N, Punkt radar, float R)
 {
     int i; float x,y;
     for (i=0;i<N;++i)
-    {
-        scanf("%f %f",&punkty[i].x, &punkty[i].y);
+    {        
+        printf("punkt numer: %d\nx: %.3f, y: %.3f\n",i+1,punkty[i].x,punkty[i].y);
+        float h = sqrtf(pow(punkty[i].x -radar.x, 2) + pow(punkty[i].y - radar.y,2));
+        if (R-h>0)
+                    printf("punkt numer: %d\nx: %.3f, y: %.3f\n",i+1,punkty[i].x,punkty[i].y);
     }
     return;
 };

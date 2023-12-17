@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 
 void znajdzMinMax(FILE *f,int *min,int *max) {
     FILE *ujemne, *dodatnie; int i;
+    // todo : sprawdz czy plik nie jest pusty
     *min = *max =fscanf(f, "%d", &i);
     while ((fscanf(f, "%d", &i)) != EOF)
     {
