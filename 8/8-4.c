@@ -1,77 +1,73 @@
+/* Zadanie 8.4
+ Korzystając z tablicy utworzonej w Zadaniu 8.1 napisz funkcję, która znajdzie i wyświetli na ekranie
+ współrzędne punktu najbliższego do punktu danego jako parametr. */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-typedef struct punkt {
+typedef struct punkt
+{
     float x, y;
 } Punkt;
-
-void fill(Punkt * p, int N);
-void show(Punkt * p, int N);
-void radarF(Punkt * p, int N, Punkt radar, float R);
-int main() 
+void fillArray(Punkt *tab, int n);
+void show(Punkt *tab, int n);
+Punkt searchNearestPoint(Punkt *tab, int n, Punkt point);
+double distance(Punkt p, Punkt q);
+int main()
 {
-    int N; float R;
-    printf("Podaj liczbę punktow:");
-    scanf("%d",&N);
-    if(N<1) {
-       printf("liczba nie moze byc mniejsza niz 1!\n");
-       return 1;
+    int n = 0;
+    while (n <= 0)
+    {
+        printf("Podaj rozmiar tablicy:\n");
+        scanf("%d", &n);
     }
-    int i; float x,y;
-    Punkt * punkty;
-    punkty = calloc(N, sizeof(Punkt));
-    fill(punkty, N);
-
-    show(punkty, N);
-
-    printf("Podaj polozenie radaru:");
-    Punkt radar;
-    scanf("%f %f",&radar.x,&radar.y);
-
-    printf("Podaj R:");
-    scanf("%f",&R);
-    if(R<0) {
-       printf("liczba nie moze byc mniejsza niz 0!\n");
-       return 1;
-    }
-    radarF(punkty, N, radar, R);
-
-   //zainicjuj srand aby uywać czasu do losowania liczb
-
+    Punkt *tab = calloc(n, n * sizeof(Punkt));
+    fillArray(tab, n);
+    show(tab, n);
+    Punkt point;
+    point.x = 1;
+    point.y = 2;
+    Punkt minPoint = searchNearestPoint(tab, n, point);
+    printf("Najbliższy punkt: (%1.2f, %1.2f)", minPoint.x, minPoint.y);
     return 0;
 }
-void radarF(Punkt * punkty, int N, Punkt radar, float R)
-{
-    int i; float x,y;
-        int closest = 0;
-        float odl = 0;
-    for (i=0;i<N;++i)
-    {        
-        float h = sqrtf(pow(punkty[i].x - radar.x, 2) + pow(punkty[i].y - radar.y,2));
-        if (fabs(h)<odl || h == 0) {closest = i; odl = R-h;}
-    }
-        printf("Najblizszy punkt x: %.3f, y: %.3f\n",punkty[closest].x,punkty[closest].y);
-    return;
-};
 
-void fill(Punkt * punkty, int N)
+void fillArray(Punkt *tab, int n)
 {
-    int i; float x,y;
-    for (i=0;i<N;++i)
-    {
-        scanf("%f %f",&punkty[i].x, &punkty[i].y);
-    }
+    printf("Podaj elementy tablicy:\n");
+    for (int i = 0; i < n; i++)
+        scanf("%f, %f", &tab[i].x, &tab[i].y);
     return;
-};
-void show(Punkt * punkty, int N)
+}
+
+void show(Punkt *tab, int n)
 {
-    int i; float x,y;
-    for (i=0;i<N;++i)
-    {
-        printf("punkt numer: %d\nx: %.3f, y: %.3f\n",i+1,punkty[i].x,punkty[i].y);
-    }
+    int i;
+    printf("[ (%1.2f, %1.2f), ", tab[0].x, tab[0].y);
+    for (i = 1; i < n - 1; i++)
+        printf("(%1.2f, %1.2f), ", tab[i].x, tab[i].y);
+    printf("(%1.2f, %1.2f) ]\n", tab[n - 1].x, tab[n - 1].y);
     return;
-};
-// Zadanie 8.4
-// Korzystając z tablicy utworzonej w Zadaniu 8.1 napisz funkcję, która znajdzie i wyświetli na ekranie współrzędne punktu najbliższego do punktu danego jako parametr.
+}
+
+double distance(Punkt p, Punkt q)
+{
+    return abs(sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2)));
+}
+
+Punkt searchNearestPoint(Punkt *tab, int n, Punkt point)
+{
+    double minDistance = distance(tab[0], point);
+    Punkt minPoint = tab[0];
+    for (int i = 1; i < n; i++)
+    {
+        double currentDistance = distance(tab[i], point);
+        if (currentDistance < minDistance)
+        {
+            minDistance = currentDistance;
+            minPoint = tab[i];
+        }
+    }
+    return minPoint;
+}
